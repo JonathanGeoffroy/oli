@@ -4,7 +4,12 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
+      "rules": {
+        "comma-dangle": ["error", "always-multiline"],
+        "semi": ["error", "always"],
+        "curly": "error"
+      }
+      
     },
     {
       "files": ["*.ts", "*.tsx"],
