@@ -1,9 +1,10 @@
 import { Show, createSignal } from 'solid-js';
 import supabaseClient from './supabaseClient';
 import { useUser } from './UserProvider';
+import { Input } from 'ui';
 
 export default function () {
-  const [user, setUser] = useUser();
+  const [user] = useUser();
 
   const [loading, setLoading] = createSignal(false);
   const [email, setEmail] = createSignal('');
@@ -20,7 +21,6 @@ export default function () {
         password: password(),
       });
 
-      console.log(error?.message);
       setError(error?.message ?? null);
     } finally {
       setLoading(false);
@@ -30,8 +30,6 @@ export default function () {
   return (
     <Show when={!user()} fallback={<p>Already logged in</p>}>
       <div>
-        <p>user: {user()?.email}</p>
-        <p class="description">Sign in:</p>
         <form class="form-widget" onSubmit={handleLogin}>
           <div>
             <label for="email">Email</label>
@@ -61,7 +59,7 @@ export default function () {
             </button>
           </div>
           <Show when={error()}>
-            <p>{error()}</p>
+            <p class="errored">{error()}</p>
           </Show>
         </form>
       </div>
